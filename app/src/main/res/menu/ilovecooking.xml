@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/fish"
+        android:title="@string/fish" />
+    <item android:id="@+id/meat"
+        android:title="@string/meat" />
+    <item android:id="@+id/chicken"
+        android:title="@string/chicken" />
+    <item android:id="@+id/desserts"
+        android:title="@string/desserts" />
+    <item android:id="@+id/salads"
+        android:title="@string/salads" />
+    <item android:id="@+id/pasta"
+        android:title="@string/pasta" />
+    <item android:id="@+id/soups"
+        android:title="@string/soups" />
+    <item android:id="@+id/pizza"
+        android:title="@string/pizza" />
+    <item android:id="@+id/bread"
+        android:title="@string/bread" />
+    <item android:id="@+id/addRecipes"
+        android:title="@string/addRecipes" />
+</menu>
