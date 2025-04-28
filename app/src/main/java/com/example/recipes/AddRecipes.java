@@ -1,4 +1,5 @@
 package com.example.recipes;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -6,34 +7,35 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddRecipes extends AppCompatActivity {
+public class AddRecipes extends ActivityWithMenu {
     private Uri imageUri;
     private ImageView imageButton;
     private Spinner recipeTypeSpinner;
     private String selectedRecipeType = "";
+    private Bitmap selectedBitmap;
+    private EditText edtName, edtMoney, edtTime, edtMaking;
 
     private final ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -41,7 +43,13 @@ public class AddRecipes extends AppCompatActivity {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     Uri selectedImageUri = result.getData().getData();
                     imageUri = selectedImageUri;
-                    imageButton.setImageURI(imageUri);
+                    try {
+                        selectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                        imageButton.setImageBitmap(selectedBitmap);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
@@ -51,7 +59,7 @@ public class AddRecipes extends AppCompatActivity {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     Bitmap photo = (Bitmap) result.getData().getExtras().get("data");
                     if (photo != null) {
-                        imageUri = getImageUri(photo);
+                        selectedBitmap = photo;
                         imageButton.setImageBitmap(photo);
                     }
                 }
@@ -127,39 +135,47 @@ public class AddRecipes extends AppCompatActivity {
     }
 
     private void saveRecipeToFirebase() {
-        if (imageUri == null || selectedRecipeType.isEmpty()) {
+        if (selectedBitmap == null || selectedRecipeType.isEmpty()) {
             Toast.makeText(this, "Please select an image and a recipe type", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference("recipes/" + System.currentTimeMillis() + ".jpg");
+        // ממירים את התמונה ל-Base64
+        String imageBase64 = bitmapToBase64(selectedBitmap);
 
-        storageRef.putFile(imageUri)
-                .addOnSuccessListener(taskSnapshot -> storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                    saveToFirestore(uri.toString(), selectedRecipeType);
-                }))
-                .addOnFailureListener(e -> Toast.makeText(AddRecipes.this, "Upload failed", Toast.LENGTH_SHORT).show());
+        saveToRealtimeDatabase(imageBase64, selectedRecipeType);
     }
 
-    private void saveToFirestore(String imageUrl, String recipeType) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private void saveToRealtimeDatabase(String imageBase64, String recipeType) {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("recipes");
+
+        edtMaking = findViewById(R.id.edtIngredients);
+        edtMoney = findViewById(R.id.edtMoney);
+        edtName = findViewById(R.id.edtName);
+        edtTime = findViewById(R.id.edtTime);
         Map<String, Object> recipe = new HashMap<>();
-        recipe.put("imageUrl", imageUrl);
+        recipe.put("imageBase64", imageBase64);
         recipe.put("recipeType", recipeType);
 
-        db.collection("recipes").add(recipe)
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(AddRecipes.this, "Recipe saved!", Toast.LENGTH_SHORT).show();
+        recipe.put("title", edtName.getText().toString());
+
+        recipe.put("ingredients", edtMaking.getText().toString());
+        recipe.put("cost", edtMoney.getText().toString());
+        recipe.put("preparationTime",edtTime.getText().toString());
+        dbRef.push().setValue(recipe)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(AddRecipes.this, "Recipe saved to Realtime DB!", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(AddRecipes.this, "Failed to save recipe", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddRecipes.this, "Failed to save recipe: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("AddRecipes", "Error saving to Realtime Database", e);
                 });
     }
 
-    private Uri getImageUri(Bitmap bitmap) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "CapturedImage", null);
-        return Uri.parse(path);
+    private String bitmapToBase64(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] bytes = baos.toByteArray();
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 }

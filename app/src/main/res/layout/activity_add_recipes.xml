@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText"
+        app:layout_constraintTop_toBottomOf="@+id/edtIngredients"
         app:srcCompat="@drawable/foodpic" />
 
     <Spinner
@@ -29,7 +29,7 @@
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="24dp"
         android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintBottom_toTopOf="@+id/edtName"
         app:layout_constraintEnd_toStartOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -42,13 +42,13 @@
         android:layout_marginBottom="36dp"
         android:text="סוג מאכל"
         app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toTopOf="@+id/editText2"
+        app:layout_constraintBottom_toTopOf="@+id/edtTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/spi"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/edtName"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="36dp"
@@ -57,13 +57,13 @@
         android:layout_marginBottom="102dp"
         android:ems="10"
         android:hint="שם המאכל"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText"
-        app:layout_constraintEnd_toStartOf="@+id/editText2"
+        app:layout_constraintBottom_toTopOf="@+id/edtIngredients"
+        app:layout_constraintEnd_toStartOf="@+id/edtTime"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/edtTime"
         android:layout_width="134dp"
         android:layout_height="48dp"
         android:layout_marginEnd="39dp"
@@ -72,11 +72,11 @@
         android:hint="זמן הכנה"
         app:layout_constraintBottom_toTopOf="@+id/btnSave"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editText"
+        app:layout_constraintStart_toEndOf="@+id/edtName"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/edtMoney"
         android:layout_width="0dp"
         android:layout_height="51dp"
         android:layout_marginTop="22dp"
@@ -84,13 +84,13 @@
         android:layout_marginBottom="24dp"
         android:ems="10"
         android:hint="כמה המצרכים עולים"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText"
+        app:layout_constraintBottom_toTopOf="@+id/edtIngredients"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnSave"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTime" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/edtIngredients"
         android:layout_width="363dp"
         android:layout_height="288dp"
         android:layout_marginStart="30dp"
@@ -111,8 +111,8 @@
         android:layout_marginEnd="44dp"
         android:layout_marginBottom="26dp"
         android:text="save"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText"
-        app:layout_constraintEnd_toStartOf="@+id/editText3"
+        app:layout_constraintBottom_toTopOf="@+id/edtIngredients"
+        app:layout_constraintEnd_toStartOf="@+id/edtMoney"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTime" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">Recipes</string>
-    <string name="fish">fish</string>
-    <string name="meat">meat</string>
-    <string name="chicken">chicken</string>
-    <string name="desserts">dessert</string>
-    <string name="salads">salads</string>
-    <string name="soups">soups</string>
-    <string name="pizza">pizza</string>
-    <string name="bread">bread</string>
-    <string name="addRecipes">addRecipes</string>
-    <string name="pasta">pasta</string>
+    <string name="fish">Fish</string>
+    <string name="meat">Meat</string>
+    <string name="chicken">Chicken</string>
+    <string name="desserts">Dessert</string>
+    <string name="salads">Salads</string>
+    <string name="soups">Soups</string>
+    <string name="pizza">Pizza</string>
+    <string name="bread">Bread</string>
+    <string name="addRecipes">Add recipes</string>
+    <string name="pasta">Pasta</string>
     <string-array name="recipe_types">
         <item>fish</item>
         <item>meat</item>

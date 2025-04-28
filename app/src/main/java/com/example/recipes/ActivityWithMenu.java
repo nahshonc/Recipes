@@ -24,7 +24,7 @@ public class ActivityWithMenu extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-         super.onCreateOptionsMenu(menu);
+        super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.ilovecooking, menu);
         return true;
@@ -33,10 +33,16 @@ public class ActivityWithMenu extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        Intent get = new Intent(this, RecipesByTypeActivity.class);
+        Intent recipesByTypeIntent = new Intent(this, RecipesByTypeActivity.class);
+        Intent addRecipIntent = new Intent(this, AddRecipes.class);
         String title = item.getTitle().toString();
-        get.putExtra("title",title);
-        startActivity(get);
+
+        if (title.equals(getString(R.string.addRecipes)))
+            startActivity(addRecipIntent);
+        else {
+            recipesByTypeIntent.putExtra("title", title);
+            startActivity(recipesByTypeIntent);
+        }
         return super.onOptionsItemSelected(item);
     }
 }
