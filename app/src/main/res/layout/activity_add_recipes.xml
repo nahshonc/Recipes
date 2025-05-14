@@ -83,7 +83,7 @@
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="24dp"
         android:ems="10"
-        android:hint="כמה המצרכים עולים"
+        android:hint="עלות המצרכים"
         app:layout_constraintBottom_toTopOf="@+id/edtIngredients"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnSave"

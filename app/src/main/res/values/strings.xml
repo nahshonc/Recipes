@@ -11,13 +11,13 @@
     <string name="addRecipes">Add recipes</string>
     <string name="pasta">Pasta</string>
     <string-array name="recipe_types">
-        <item>fish</item>
-        <item>meat</item>
-        <item>chicken</item>
-        <item>desserts</item>
-        <item>salads</item>
-        <item>soups</item>
-        <item>pizza</item>
-        <item>bread</item>
+        <item>Fish</item>
+        <item>Meat</item>
+        <item>Chicken</item>
+        <item>Desserts</item>
+        <item>Salads</item>
+        <item>Soups</item>
+        <item>Pizza</item>
+        <item>Bread</item>
     </string-array>
 </resources>
