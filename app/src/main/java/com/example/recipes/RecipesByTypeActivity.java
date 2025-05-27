@@ -2,6 +2,8 @@ package com.example.recipes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +31,7 @@ public class RecipesByTypeActivity extends ActivityWithMenu {
     private RecipeAdapter adapter;
     private List<Recipe> recipeList = new ArrayList<>();
     private String recipeType;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +41,9 @@ public class RecipesByTypeActivity extends ActivityWithMenu {
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RecipeAdapter(this ,recipeList);
+        adapter = new RecipeAdapter(this, recipeList);
         recyclerView.setAdapter(adapter);
-
+        progressBar = findViewById(R.id.progressBar);
         recipeType = getIntent().getStringExtra("title");
         ((TextView) findViewById(R.id.titleView)).setText(recipeType);
 
@@ -48,6 +51,8 @@ public class RecipesByTypeActivity extends ActivityWithMenu {
     }
 
     private void loadRecipesByType(String type) {
+        progressBar.setVisibility(View.VISIBLE); // הצג את הספינר
+
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("recipes");
 
         dbRef.orderByChild("recipeType").equalTo(type)
@@ -62,11 +67,13 @@ public class RecipesByTypeActivity extends ActivityWithMenu {
                             }
                         }
                         adapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE); // הסתר את הספינר
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         Toast.makeText(RecipesByTypeActivity.this, "שגיאה בטעינת מתכונים", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE); // הסתר גם במקרה של שגיאה
                     }
                 });
     }

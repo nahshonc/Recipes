@@ -21,10 +21,6 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <TextView android:id="@+id/tvIngredients"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="מרכיבים: "/>
 
     <TextView android:id="@+id/tvTime"
         android:layout_width="match_parent"

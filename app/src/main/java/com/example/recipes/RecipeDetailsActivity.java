@@ -29,16 +29,21 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         tvCost = findViewById(R.id.tvCost);
 
         Intent intent = getIntent();
-        tvTitle.setText(intent.getStringExtra("title"));
-        tvIngredients.setText("מרכיבים:\n" + intent.getStringExtra("ingredients"));
-        tvTime.setText("זמן הכנה: " + intent.getStringExtra("preparationTime"));
-        tvCost.setText("עלות: " + intent.getStringExtra("cost"));
+        int position = intent.getIntExtra("position", -1);
+        if (position != -1) {
+            Recipe recipe = RecipeAdapter.recipeList.get(position);
+            tvTitle.setText(recipe.getTitle());
+            tvIngredients.setText("מרכיבים:\n" + recipe.getIngredients());
+            tvTime.setText("זמן הכנה: " + recipe.getPreparationTime());
+            tvCost.setText("עלות: " + recipe.getCost());
+            String imageBase64 = recipe.getImageBase64();
 
-        String imageBase64 = intent.getStringExtra("imageBase64");
-        if (imageBase64 != null && !imageBase64.isEmpty()) {
-            byte[] decodedBytes = Base64.decode(imageBase64, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-            imageView.setImageBitmap(bitmap);
+
+            if (imageBase64 != null && !imageBase64.isEmpty()) {
+                byte[] decodedBytes = Base64.decode(imageBase64, Base64.DEFAULT);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+                imageView.setImageBitmap(bitmap);
+            }
         }
     }
 }

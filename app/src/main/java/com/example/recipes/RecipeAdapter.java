@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
-    private List<Recipe> recipeList;
+    public static List<Recipe> recipeList;
     private Context context;
 
     public RecipeAdapter(Context context, List<Recipe> recipeList) {
@@ -37,7 +37,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         Recipe recipe = recipeList.get(position);
         holder.title.setText(recipe.getTitle());
-        holder.ingredients.setText(recipe.getIngredients());
         holder.time.setText("זמן הכנה: " + recipe.getPreparationTime());
         holder.cost.setText("עלות: " + recipe.getCost());
 
@@ -49,11 +48,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, RecipeDetailsActivity.class);
-            intent.putExtra("title", recipe.getTitle());
-            intent.putExtra("ingredients", recipe.getIngredients());
-            intent.putExtra("cost", recipe.getCost());
-            intent.putExtra("preparationTime", recipe.getPreparationTime());
-            intent.putExtra("imageBase64", recipe.getImageBase64());
+            intent.putExtra("position", position);
             context.startActivity(intent);
         });
     }

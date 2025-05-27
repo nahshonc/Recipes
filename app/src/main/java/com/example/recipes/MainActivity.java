@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent go = new Intent(this,Register.class);
             startActivity(go);
         }
-        else{
+        else if(view == button){
             String email= etEmail.getText().toString();    
             String pass = password.getText().toString();    
             firebaseAuth.signInWithEmailAndPassword(email,pass) .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {                

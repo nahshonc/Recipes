@@ -24,7 +24,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     private EditText confirmpassword;
     private EditText etEmail;
     private Button but;
-    String user;
+   static String user;
     Intent go;
 
     @Override

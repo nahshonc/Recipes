@@ -1,6 +1,7 @@
 package com.example.recipes;
 
 public class Recipe {
+    private String creator;
     private String imageBase64;
     private String recipeType;
     private String title;
@@ -12,7 +13,9 @@ public class Recipe {
         // חובה עבור Firebase
     }
 
-
+    public String getcreator() {
+        return creator;
+    }
     public String getImageBase64() {
         return imageBase64;
     }
