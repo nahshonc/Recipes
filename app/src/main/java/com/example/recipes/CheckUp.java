@@ -8,7 +8,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class CheckUp extends AppCompatActivity {
+public class CheckUp extends ActivityWithMenu {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
