@@ -67,10 +67,16 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                     String email = etEmail.getText().toString();
                     user = username.getText().toString();
                     String pass = password.getText().toString();
+
                     firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                SharedPreferences sharedPref = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putString("username", user); // או username.getText().toString()
+                                editor.apply();
+
                                 startActivity(go);
                             } else {
                                 task.getException();

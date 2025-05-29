@@ -1,7 +1,9 @@
 package com.example.recipes;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -207,6 +209,9 @@ public class AddRecipes extends ActivityWithMenu {
         edtName = findViewById(R.id.edtName);
         edtTime = findViewById(R.id.edtTime);
         Map<String, Object> recipe = new HashMap<>();
+        SharedPreferences sharedPref = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+        String username = sharedPref.getString("username", "UnknownUser"); // ברירת מחדל אם אין
+
         recipe.put("imageBase64", imageBase64);
         recipe.put("recipeType", recipeType);
         recipe.put("creator", Register.user);
