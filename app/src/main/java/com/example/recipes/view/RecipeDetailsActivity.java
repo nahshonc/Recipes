@@ -14,7 +14,11 @@ import com.example.recipes.R;
 import com.example.recipes.controller.RecipeAdapter;
 import com.example.recipes.model.Recipe;
 
+/**
+ * פעילות המציגה את פרטי המתכון הנבחר, כולל תמונה, שם, מרכיבים, זמן הכנה ועלות.
+ */
 public class RecipeDetailsActivity extends AppCompatActivity {
+
     ImageView imageView;
     TextView tvTitle, tvIngredients, tvTime, tvCost;
 
@@ -38,7 +42,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             tvTime.setText("זמן הכנה: " + recipe.getPreparationTime());
             tvCost.setText("עלות: " + recipe.getCost());
             String imageBase64 = recipe.getImageBase64();
-
 
             if (imageBase64 != null && !imageBase64.isEmpty()) {
                 byte[] decodedBytes = Base64.decode(imageBase64, Base64.DEFAULT);

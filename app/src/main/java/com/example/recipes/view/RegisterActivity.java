@@ -17,15 +17,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * Activity המאפשרת למשתמש להירשם לאפליקציה עם אימייל וסיסמה.
+ * מבצעת בדיקות בסיסיות על סיסמה, ושומרת את שם המשתמש ב-SharedPreferences.
+ */
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
-    private TextView text;
+    private TextView tvPasswordInstruction;
     private static FirebaseAuth firebaseAuth;
-    private EditText username;
-    private EditText password;
-    private EditText confirmpassword;
+    private EditText etUsername;
+    private EditText etPassword;
+    private EditText etConfirmPassword;
     private EditText etEmail;
-    private Button but;
-   static String user;
+    private Button btnFinish;
+    static String user;
     Intent go;
 
     @Override
@@ -35,46 +39,53 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         initViews();
         firebaseAuth = FirebaseAuth.getInstance();
         go = new Intent(this, MainActivity.class);
-
     }
 
+    /**
+     * מאתחל את רכיבי ה-UI וקישורי האירועים.
+     */
     private void initViews() {
-        text = findViewById(R.id.textView1);
+        tvPasswordInstruction = findViewById(R.id.textView1);
         etEmail = findViewById(R.id.edGmail);
-        username = findViewById(R.id.edUsername);
-        password = findViewById(R.id.edPassword);
-        confirmpassword = findViewById(R.id.edConfirmPassword);
-        but = findViewById(R.id.button);
-        but.setOnClickListener(this);
-
-
+        etUsername = findViewById(R.id.edUsername);
+        etPassword = findViewById(R.id.edPassword);
+        etConfirmPassword = findViewById(R.id.edConfirmPassword);
+        btnFinish = findViewById(R.id.button);
+        btnFinish.setOnClickListener(this);
     }
 
+    /**
+     * מטפל בלחיצה על כפתור ההרשמה,
+     * מבצע בדיקות תקינות על השדות,
+     * יוצר משתמש ב-Firebase ושומר את שם המשתמש במשתני SharedPreferences.
+     *
+     * @param view הכפתור שנלחץ
+     */
     @Override
     public void onClick(View view) {
-        if (view == but) {
+        if (view == btnFinish) {
             String email = etEmail.getText().toString().trim();
-            String userInput = username.getText().toString().trim();
-            String pass = password.getText().toString();
-            String confirmPass = confirmpassword.getText().toString();
+            String userInput = etUsername.getText().toString().trim();
+            String pass = etPassword.getText().toString();
+            String confirmPass = etConfirmPassword.getText().toString();
 
             // בדיקת שדות ריקים
             if (email.isEmpty() || userInput.isEmpty() || pass.isEmpty() || confirmPass.isEmpty()) {
-                text.setText("אנא מלא את כל השדות");
+                tvPasswordInstruction.setText("אנא מלא את כל השדות");
                 return;
             }
 
-            // בדיקת אורך וסיסמה תקינה
+            // בדיקת תקינות סיסמה (לפחות 8 תווים, אות גדולה, אות קטנה, ספרה, וסיסמה תואמת)
             if (pass.length() < 8 ||
                     !pass.matches(".*[A-Z].*") ||
                     !pass.matches(".*[a-z].*") ||
                     !pass.matches(".*[0-9].*") ||
                     !pass.equals(confirmPass)) {
-                text.setText("סיסמה לא תקינה או לא תואמת");
+                tvPasswordInstruction.setText("סיסמה לא תקינה או לא תואמת");
                 return;
             }
 
-            // אם הכול תקין
+            // יצירת משתמש ב-Firebase
             firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(Task<AuthResult> task) {
@@ -86,7 +97,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                         startActivity(go);
                     } else {
-                        text.setText("אירעה שגיאה: " + task.getException().getMessage());
+                        tvPasswordInstruction.setText("אירעה שגיאה: " + task.getException().getMessage());
+                        // רענון המסך במקרה של שגיאה
                         Intent intent = getIntent();
                         finish();
                         startActivity(intent);
@@ -95,4 +107,4 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             });
         }
     }
-    }
+}

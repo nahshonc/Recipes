@@ -1,6 +1,5 @@
 package com.example.recipes.controller;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,11 +19,25 @@ import com.example.recipes.model.Recipe;
 import com.example.recipes.view.RecipeDetailsActivity;
 
 import java.util.List;
+
+/**
+ * Adapter שמציג רשימת מתכונים ברכיב RecyclerView.
+ * אחראי על יצירת התצוגות, מילוי הנתונים, וטיפול באירועים של לחיצה על פריט.
+ */
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
+    /** רשימת המתכונים להצגה */
     public static List<Recipe> recipeList;
+
+    /** הקשר (context) של האפליקציה, נדרש לצורך יצירת Intents וכו' */
     private Context context;
 
+    /**
+     * בונה Adapter חדש לרשימת מתכונים.
+     *
+     * @param context הקשר של האפליקציה
+     * @param recipeList רשימת המתכונים
+     */
     public RecipeAdapter(Context context, List<Recipe> recipeList) {
         this.recipeList = recipeList;
         this.context = context;
@@ -62,10 +75,20 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         return recipeList.size();
     }
 
+    /**
+     * מחלקה פנימית שמייצגת תצוגה אחת של מתכון בתוך הרשימה (ViewHolder).
+     */
     static class RecipeViewHolder extends RecyclerView.ViewHolder {
+
+        /** רכיבי תצוגה עבור שם, מרכיבים, זמן הכנה, עלות ותמונה */
         TextView title, ingredients, time, cost;
         ImageView imageView;
 
+        /**
+         * יוצר ViewHolder חדש ומאתחל את רכיבי התצוגה.
+         *
+         * @param itemView התצוגה של פריט אחד ברשימה
+         */
         public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tvTitle);

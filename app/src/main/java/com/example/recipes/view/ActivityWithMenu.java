@@ -11,13 +11,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.recipes.R;
 
+/**
+ * Activity בסיסית שמכילה תפריט עליון (Menu).
+ * מטפלת בלחיצות בתפריט לניווט בין מסכים שונים באפליקציית המתכונים.
+ */
 public class ActivityWithMenu extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        // אין תוכן נוסף בפעולה זו
     }
 
     @Override
@@ -30,7 +33,6 @@ public class ActivityWithMenu extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         Intent recipesByTypeIntent = new Intent(this, RecipesByTypeActivity.class);
         Intent addRecipIntent = new Intent(this, AddRecipesActivity.class);
         String title = item.getTitle().toString();
@@ -41,6 +43,7 @@ public class ActivityWithMenu extends AppCompatActivity {
             recipesByTypeIntent.putExtra("title", title);
             startActivity(recipesByTypeIntent);
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

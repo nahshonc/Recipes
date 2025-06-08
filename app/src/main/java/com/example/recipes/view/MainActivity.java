@@ -1,4 +1,5 @@
 package com.example.recipes.view;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -21,36 +22,43 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * מסך הכניסה הראשי של האפליקציה.
+ * מאפשר התחברות עם אימייל וסיסמה, או מעבר למסך רישום.
+ * מבצע בדיקת חיבור לאינטרנט ומשתמש ב-Firebase לאימות משתמשים.
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    EditText etEmail, password;
-    TextView bob;
-    Button button, signUp;
+
+    EditText etEmail, etPassword;
+    TextView tvInstruction;
+    Button btSignIn, btSignUp;
     FirebaseAuth firebaseAuth;
-    Intent  intent ;
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        intent = new Intent(this, WelcomeActivity.class);
-        if (!isConnected()) {
-            // אפשר להראות הודעה עם Toast
-            Toast.makeText(this, "אין חיבור אינטרנט. יש להתחבר כדי להשתמש באפליקציה.", Toast.LENGTH_LONG).show();
 
-            // אפשר גם למנוע גישה ע"י סיום הפעילות:
+        intent = new Intent(this, WelcomeActivity.class);
+
+        if (!isConnected()) {
+            Toast.makeText(this, "אין חיבור אינטרנט. יש להתחבר כדי להשתמש באפליקציה.", Toast.LENGTH_LONG).show();
             finish();
             return;
         }
 
-        // המשך רגיל אם יש חיבור
         initViews();
-
     }
+
+    /**
+     * בודק האם המכשיר מחובר לאינטרנט (WiFi, סלולר או Ethernet).
+     *
+     * @return true אם יש חיבור אינטרנט, אחרת false
+     */
     public boolean isConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        if (connectivityManager == null) {
-            return false;
-        }
+        if (connectivityManager == null) return false;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Network network = connectivityManager.getActiveNetwork();
@@ -67,58 +75,66 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void initViews(){
+    /**
+     * מאתחל את כל הרכיבים הגרפיים במסך ואת Firebase Authentication.
+     */
+    public void initViews() {
         firebaseAuth = FirebaseAuth.getInstance();
         etEmail = findViewById(R.id.username);
-        password = findViewById(R.id.enter_password);
-        bob = findViewById(R.id.textView3);
-        button = findViewById(R.id.btnEnter);
-        button.setOnClickListener(this);
-        signUp = findViewById(R.id.btnEnter2);
-        signUp.setOnClickListener(this);
+        etPassword = findViewById(R.id.enter_password);
+        tvInstruction = findViewById(R.id.textView3);
+        btSignIn = findViewById(R.id.btnEnter);
+        btSignUp = findViewById(R.id.btnEnter2);
 
-
+        btSignIn.setOnClickListener(this);
+        btSignUp.setOnClickListener(this);
     }
 
+    /**
+     * מאזין ללחיצה על כפתור התחברות או רישום, ומבצע פעולה מתאימה.
+     *
+     * @param view הרכיב שנלחץ
+     */
     @Override
     public void onClick(View view) {
-
-        if (view == signUp) {
+        if (view == btSignUp) {
+            // מעבר למסך הרשמה
             Intent go = new Intent(this, RegisterActivity.class);
             startActivity(go);
-        } else if (view == button) {
+        } else if (view == btSignIn) {
+            // ניסיון התחברות
             String email = etEmail.getText().toString().trim();
-            String pass = password.getText().toString();
+            String pass = etPassword.getText().toString();
 
             if (email.isEmpty() || pass.isEmpty()) {
-                // הדרך הנכונה: להציג שגיאה
-                bob.setText("יש למלא את כל השדות");
+                tvInstruction.setText("יש למלא את כל השדות");
 
-                // או: הדרך שאתה רוצה – לרענן את המסך
+                // רענון המסך
                 Intent refresh = new Intent(MainActivity.this, MainActivity.class);
                 finish();
                 startActivity(refresh);
                 return;
             }
 
+            // התחברות ל-Firebase
             firebaseAuth.signInWithEmailAndPassword(email, pass)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        /**
+                         * מאזין לתוצאת התחברות Firebase.
+                         *
+                         * @param task תוצאת הפעולה (הצלחה או כישלון)
+                         */
                         @Override
                         public void onComplete(Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                // מעבר למסך הבית
                                 startActivity(intent);
                             } else {
-                                // הדרך הנכונה: להציג שגיאה
-                                bob.setText("המייל או הסיסמה שגויים");
-
-                                // או לרענן את המסך
-
+                                // הצגת הודעת שגיאה
+                                tvInstruction.setText("המייל או הסיסמה שגויים");
                             }
                         }
                     });
         }
     }
-
-
-    }
-
+}

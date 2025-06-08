@@ -23,6 +23,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity המציגה רשימת מתכונים מסוג מסוים (לפי קטגוריה),
+ * ומטעינה אותם מבסיס הנתונים Firebase.
+ */
 public class RecipesByTypeActivity extends ActivityWithMenu {
 
     private RecyclerView recyclerView;
@@ -42,14 +46,21 @@ public class RecipesByTypeActivity extends ActivityWithMenu {
         adapter = new RecipeAdapter(this, recipeList);
         recyclerView.setAdapter(adapter);
         progressBar = findViewById(R.id.progressBar);
+
         recipeType = getIntent().getStringExtra("title");
         ((TextView) findViewById(R.id.titleView)).setText(recipeType);
 
         loadRecipesByType(recipeType);
     }
 
+    /**
+     * טוען את רשימת המתכונים לפי סוג המתכון המבוקש מבסיס הנתונים,
+     * ומעדכן את ממשק המשתמש.
+     *
+     * @param type סוג המתכון לטעינה (למשל: "עוגות", "מרקים" וכו')
+     */
     private void loadRecipesByType(String type) {
-        progressBar.setVisibility(View.VISIBLE); // הצג את הספינר
+        progressBar.setVisibility(View.VISIBLE); // הצגת הספינר בעת הטעינה
 
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("recipes");
 
@@ -65,13 +76,13 @@ public class RecipesByTypeActivity extends ActivityWithMenu {
                             }
                         }
                         adapter.notifyDataSetChanged();
-                        progressBar.setVisibility(View.GONE); // הסתר את הספינר
+                        progressBar.setVisibility(View.GONE); // הסתרת הספינר בסיום הטעינה
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         Toast.makeText(RecipesByTypeActivity.this, "שגיאה בטעינת מתכונים", Toast.LENGTH_SHORT).show();
-                        progressBar.setVisibility(View.GONE); // הסתר גם במקרה של שגיאה
+                        progressBar.setVisibility(View.GONE); // הסתרת הספינר גם במקרה של שגיאה
                     }
                 });
     }
