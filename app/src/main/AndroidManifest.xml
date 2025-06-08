@@ -14,6 +14,7 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32"
         tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -36,28 +37,28 @@
         </provider>
 
         <activity
-            android:name=".RecipeDetailsActivity"
+            android:name=".view.RecipeDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".RecipesByTypeActivity"
+            android:name=".view.RecipesByTypeActivity"
             android:exported="false" />
         <activity
-            android:name=".ActivityWithMenu"
+            android:name=".view.ActivityWithMenu"
             android:exported="false" />
 
         <activity
-            android:name=".AddRecipes"
+            android:name=".view.AddRecipesActivity"
             android:exported="false"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CheckUp"
+            android:name=".view.WelcomeActivity"
             android:exported="false" />
         <activity
-            android:name=".Register"
+            android:name=".view.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

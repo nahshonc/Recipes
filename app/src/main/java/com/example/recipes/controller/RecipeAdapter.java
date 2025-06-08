@@ -1,4 +1,4 @@
-package com.example.recipes;
+package com.example.recipes.controller;
 
 
 import android.content.Context;
@@ -14,6 +14,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.recipes.R;
+import com.example.recipes.model.Recipe;
+import com.example.recipes.view.RecipeDetailsActivity;
 
 import java.util.List;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {

@@ -1,4 +1,4 @@
-package com.example.recipes;
+package com.example.recipes.view;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,11 +8,12 @@ import android.util.Base64;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.recipes.R;
+import com.example.recipes.controller.RecipeAdapter;
+import com.example.recipes.model.Recipe;
+
 public class RecipeDetailsActivity extends AppCompatActivity {
     ImageView imageView;
     TextView tvTitle, tvIngredients, tvTime, tvCost;

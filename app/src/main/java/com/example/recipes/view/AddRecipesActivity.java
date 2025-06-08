@@ -1,4 +1,4 @@
-package com.example.recipes;
+package com.example.recipes.view;
 
 import android.Manifest;
 import android.content.Context;
@@ -25,6 +25,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import com.example.recipes.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -34,7 +35,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddRecipes extends ActivityWithMenu {
+public class AddRecipesActivity extends ActivityWithMenu {
     private Uri imageUri;
     private ImageView imageButton;
     private Spinner recipeTypeSpinner;
@@ -214,7 +215,7 @@ public class AddRecipes extends ActivityWithMenu {
 
         recipe.put("imageBase64", imageBase64);
         recipe.put("recipeType", recipeType);
-        recipe.put("creator", Register.user);
+        recipe.put("creator", RegisterActivity.user);
         recipe.put("title", edtName.getText().toString());
 
         recipe.put("ingredients", edtMaking.getText().toString());
@@ -222,10 +223,10 @@ public class AddRecipes extends ActivityWithMenu {
         recipe.put("preparationTime",edtTime.getText().toString());
         dbRef.push().setValue(recipe)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(AddRecipes.this, "Recipe saved to Realtime DB!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddRecipesActivity.this, "Recipe saved to Realtime DB!", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(AddRecipes.this, "Failed to save recipe: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddRecipesActivity.this, "Failed to save recipe: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.e("AddRecipes", "Error saving to Realtime Database", e);
                 });
     }

@@ -1,4 +1,4 @@
-package com.example.recipes;
+package com.example.recipes.model;
 
 public class Recipe {
     private String creator;

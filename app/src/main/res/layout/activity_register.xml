@@ -5,27 +5,29 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Register">
+    android:background="@drawable/appbackground"
+
+    tools:context=".view.RegisterActivity">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="55dp"
-        android:text="Register"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="45dp"
+        android:text="יצירת חשבון"
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/edGmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edGmail"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edPassword"
-        android:layout_width="214dp"
+        android:layout_width="211dp"
         android:layout_height="0dp"
 
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="18dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
@@ -36,10 +38,10 @@
 
     <EditText
         android:id="@+id/edConfirmPassword"
-        android:layout_width="215dp"
+        android:layout_width="211dp"
         android:layout_height="0dp"
 
-        android:layout_marginBottom="51dp"
+        android:layout_marginBottom="73dp"
         android:ems="10"
         android:hint="confirm_password"
         android:inputType="textPassword"
@@ -53,7 +55,7 @@
         android:layout_width="211dp"
         android:layout_height="0dp"
 
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="20dp"
         android:ems="10"
         android:hint="username"
         android:inputType="text"
@@ -66,8 +68,11 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="53dp"
-        android:text="confirm"
+        android:layout_marginBottom="63dp"
+        android:backgroundTint="@color/lightGoldish"
+        android:text="שמירה"
+
+        android:textColor="@color/brownish"
         app:layout_constraintBottom_toTopOf="@+id/textView1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,21 +80,25 @@
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="384dp"
+        android:layout_height="102dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         android:layout_marginBottom="46dp"
         android:gravity="center"
-        android:text="passwords need to have one capitle letter and one number atleast while length more than 8"
+        android:text="סיסמה  צריכה להיות באנגלית וחייבת לכלול לפחות אות גדולה אחת, אות קטנה אחת, ומספר אחד, ולהכיל לפחות 8 תווים"
         android:textSize="24sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <EditText
         android:id="@+id/edGmail"
-        android:layout_width="205dp"
+        android:layout_width="211dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="26dp"
         android:ems="10"
         android:hint="gmail"
         android:inputType="textEmailAddress"

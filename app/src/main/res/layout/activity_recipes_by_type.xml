@@ -4,25 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
+    android:background="@drawable/appbackground"
+
     android:layout_height="match_parent"
-    tools:context=".RecipesByTypeActivity">
+    tools:context=".view.RecipesByTypeActivity">
+
     <TextView
         android:id="@+id/titleView"
         android:layout_width="172dp"
         android:layout_height="62dp"
         android:layout_marginTop="49dp"
-        android:layout_marginEnd="100dp"
         android:layout_marginBottom="1dp"
+        android:gravity="center"
         android:text="TextView"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="409dp"
-        android:layout_height="617dp"
+        android:layout_height="605dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
@@ -38,9 +43,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

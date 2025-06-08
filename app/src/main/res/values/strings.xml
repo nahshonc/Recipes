@@ -1,23 +1,24 @@
 <resources>
     <string name="app_name">Recipes</string>
-    <string name="fish">Fish</string>
-    <string name="meat">Meat</string>
-    <string name="chicken">Chicken</string>
-    <string name="desserts">Dessert</string>
-    <string name="salads">Salads</string>
-    <string name="soups">Soups</string>
-    <string name="pizza">Pizza</string>
-    <string name="bread">Bread</string>
-    <string name="addRecipes">Add recipes</string>
-    <string name="pasta">Pasta</string>
+    <string name="fish">דג</string>
+    <string name="meat">בשר</string>
+    <string name="chicken">עוף</string>
+    <string name="desserts">קינוח</string>
+    <string name="salads">סלט</string>
+    <string name="soups">מרק</string>
+    <string name="pizza">פיצה</string>
+    <string name="bread">לחם</string>
+    <string name="addRecipes">הוסף מתכון</string>
+    <string name="pasta">פסטה</string>
     <string-array name="recipe_types">
-        <item>Fish</item>
-        <item>Meat</item>
-        <item>Chicken</item>
-        <item>Desserts</item>
-        <item>Salads</item>
-        <item>Soups</item>
-        <item>Pizza</item>
-        <item>Bread</item>
+        <item>דג</item>
+        <item>בשר</item>
+        <item>עוף</item>
+        <item>קינוח</item>
+        <item>סלט</item>
+        <item>מרק</item>
+        <item>פיצה</item>
+        <item>לחם</item>
+        <item>פסטה</item>
     </string-array>
 </resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/appbackground"
+
+    tools:context=".view.WelcomeActivity">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="372dp"
+        android:layout_height="162dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginBottom="68dp"
+        android:background="#30A52A2A"
+        android:gravity="center"
+        android:text="ברוכים הבאים לאליקציה שיתוף מתכונים שלי"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="369dp"
+        android:layout_height="204dp"
+        android:layout_marginBottom="293dp"
+        android:background="#30A52A2A"
+        android:gravity="center"
+
+        android:text="למעלה יש את את התפריט שיקח אתכם לכל סוגי המתכונים\n או אם תרצו תוכלו להוסיף מתכון משלכם"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+</androidx.constraintlayout.widget.ConstraintLayout>

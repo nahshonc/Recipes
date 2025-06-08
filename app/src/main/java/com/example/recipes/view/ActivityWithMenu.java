@@ -1,4 +1,4 @@
-package com.example.recipes;
+package com.example.recipes.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,12 +6,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.recipes.R;
 
 public class ActivityWithMenu extends AppCompatActivity {
 
@@ -34,7 +32,7 @@ public class ActivityWithMenu extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         Intent recipesByTypeIntent = new Intent(this, RecipesByTypeActivity.class);
-        Intent addRecipIntent = new Intent(this, AddRecipes.class);
+        Intent addRecipIntent = new Intent(this, AddRecipesActivity.class);
         String title = item.getTitle().toString();
 
         if (title.equals(getString(R.string.addRecipes)))
