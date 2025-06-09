@@ -54,13 +54,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         btnFinish.setOnClickListener(this);
     }
 
-    /**
-     * מטפל בלחיצה על כפתור ההרשמה,
-     * מבצע בדיקות תקינות על השדות,
-     * יוצר משתמש ב-Firebase ושומר את שם המשתמש במשתני SharedPreferences.
-     *
-     * @param view הכפתור שנלחץ
-     */
+
     @Override
     public void onClick(View view) {
         if (view == btnFinish) {

@@ -15,12 +15,7 @@ import com.example.recipes.R;
  */
 public class WelcomeActivity extends ActivityWithMenu {
 
-    /**
-     * אתחול המסך והפעלת תמיכה ב-Edge to Edge,
-     * וכן הגדרת padding מתאים לרכיב הראשי כדי למנוע חיתוך עם שולי המערכת.
-     *
-     * @param savedInstanceState אובייקט שמכיל מצב שמור (אם קיים)
-     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

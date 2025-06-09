@@ -6,8 +6,6 @@ package com.example.recipes.model;
  */
 public class Recipe {
 
-    /** שם המשתמש שיצר את המתכון */
-    private String creator;
 
     /** תמונת המתכון כטקסט Base64 */
     private String imageBase64;
@@ -34,14 +32,8 @@ public class Recipe {
         // חובה עבור Firebase
     }
 
-    /**
-     * מחזיר את שם היוצר של המתכון.
-     *
-     * @return שם היוצר
-     */
-    public String getcreator() {
-        return creator;
-    }
+
+
 
     /**
      * מחזיר את תמונת המתכון כ-Base64.

@@ -90,11 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btSignUp.setOnClickListener(this);
     }
 
-    /**
-     * מאזין ללחיצה על כפתור התחברות או רישום, ומבצע פעולה מתאימה.
-     *
-     * @param view הרכיב שנלחץ
-     */
+
     @Override
     public void onClick(View view) {
         if (view == btSignUp) {

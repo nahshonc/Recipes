@@ -70,20 +70,7 @@ public class AddRecipesActivity extends ActivityWithMenu {
                 }
             });
 
-    private final ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK) {
-                    try {
-                        selectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), cameraImageUri);
-                        imageUri = cameraImageUri;
-                        ivAddPicture.setImageBitmap(selectedBitmap);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Toast.makeText(this, "Failed to load camera image", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+
 
     private final ActivityResultLauncher<String[]> permissionLauncher = registerForActivityResult(
             new ActivityResultContracts.RequestMultiplePermissions(),
@@ -100,10 +87,7 @@ public class AddRecipesActivity extends ActivityWithMenu {
                 }
             });
 
-    /**
-     * פעולה שמתבצעת כאשר האקטיביטי נוצר.
-     * מאתחלת רכיבים, מאזינים, מבקשת הרשאות ומטפלת בשחזור תמונה מצולמת.
-     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,9 +110,6 @@ public class AddRecipesActivity extends ActivityWithMenu {
         findViewById(R.id.btnSave).setOnClickListener(v -> saveRecipeToFirebase());
     }
 
-    /**
-     * שומר את כתובת התמונה שצולמה בעת שינוי מצב המסך.
-     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -137,9 +118,7 @@ public class AddRecipesActivity extends ActivityWithMenu {
         }
     }
 
-    /**
-     * משחזר את כתובת התמונה לאחר סיבוב מסך או שחזור פעילות.
-     */
+
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -190,25 +169,14 @@ public class AddRecipesActivity extends ActivityWithMenu {
         Intent pickIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         pickIntent.setType("image/*");
 
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, cameraImageUri);
-        cameraIntent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        Intent chooser = Intent.createChooser(pickIntent, "בחר תמונה או צלם");
-        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{cameraIntent});
+        Intent chooser = Intent.createChooser(pickIntent, "בחר תמונה  ");
 
         galleryLauncher.launch(chooser);
     }
 
-    /**
-     * פותח את המצלמה לצילום תמונה.
-     */
-    private void openCamera() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraImageUri = createImageFileUri();
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraImageUri);
-        cameraLauncher.launch(intent);
-    }
+
+
 
     /**
      * מבקש הרשאות גישה למצלמה וגלריה אם נדרש.
